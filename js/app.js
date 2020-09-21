@@ -168,7 +168,7 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?id=524901&lang=ru&appid=2
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
-fetch(`http://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
+fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
             
@@ -360,7 +360,7 @@ fetch(`http://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2
             'Нижний Новгород': 'https://avatars.mds.yandex.net/get-pdb/480866/9a17b582-ad01-4753-9143-0a467deb255e/s1200',
             'Владивосток': 'https://forumvostok.ru/upload/medialibrary/d09/d09a266b52d7ebac0915f0f395b7ae64.jpg',
             'Якутск': 'https://putevoditel-oz.ru/sites/default/files/yakutsk-2.png',
-            'Сочи': 'http://i.ytimg.com/vi/JT4a1xSB5MI/maxresdefault.jpg',
+            'Сочи': 'https://i.ytimg.com/vi/JT4a1xSB5MI/maxresdefault.jpg',
             'Дубай': 'https://coinrevolution.com/wp-content/uploads/2018/11/The-First-Cryptocurrency-Exchange-in-Dubai-UAE_coinrevolution.com-news.jpg',
             'Лондон': 'https://afisha.london/wp-content/uploads/2018/01/28069590_xl-Houses-of-Parliament.jpg',
             'Глазго': 'https://content.choiz.me/uploads/2017-08/397e66a99263c63545f1c1add4fb7b7b.jpg',
@@ -371,10 +371,10 @@ fetch(`http://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2
         // объект с фотографиями городов
         // объект с ссылками на флаги, для вывода на страницу
         const flagsOfTheStates = {
-            'RU': 'http://pngimg.com/uploads/flags/flags_PNG14622.png',
+            'RU': 'https://pngimg.com/uploads/flags/flags_PNG14622.png',
             'AE': 'https://www.flagistrany.ru/data/flags/w580/ae.png',
-            'GB': 'http://pngimg.com/uploads/flags/flags_PNG14656.png',
-            'US': 'http://pngimg.com/uploads/flags/flags_PNG14655.png',
+            'GB': 'https://pngimg.com/uploads/flags/flags_PNG14656.png',
+            'US': 'https://pngimg.com/uploads/flags/flags_PNG14655.png',
         };
         // объект с ссылками на флаги, для вывода на страницу
         // объект с русскими названиями городов
@@ -502,7 +502,7 @@ $(document).ready(function() {
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
         // отправляем запрос на получение погоды на 5 дней при выборе города в select
-        fetch(`http://api.openweathermap.org/data/2.5/forecast?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
             
