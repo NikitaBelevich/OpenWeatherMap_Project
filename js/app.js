@@ -363,7 +363,7 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
             'Сочи': 'https://i.ytimg.com/vi/JT4a1xSB5MI/maxresdefault.jpg',
             'Дубай': 'https://coinrevolution.com/wp-content/uploads/2018/11/The-First-Cryptocurrency-Exchange-in-Dubai-UAE_coinrevolution.com-news.jpg',
             'Лондон': 'https://afisha.london/wp-content/uploads/2018/01/28069590_xl-Houses-of-Parliament.jpg',
-            'Глазго': 'https://content.choiz.me/uploads/2017-08/397e66a99263c63545f1c1add4fb7b7b.jpg',
+            'Глазго': 'https://images.theconversation.com/files/280984/original/file-20190624-97745-1cu0wfu.jpg?ixlib=rb-1.1.0&q=15&auto=format&w=600&h=450&fit=crop&dpr=3',
             'Лас-Вегас': 'https://i.artfile.me/wallpaper/03-07-2017/1920x1358/goroda-las-vegas--ssha-las-vegas-1187674.jpg',
             'Вашингтон': 'https://www.fitsnews.com/wp-content/uploads/2017/06/iStock-476247849-e1497022310130.jpg',
             'Альбукерке': 'https://lh5.googleusercontent.com/-LhXZ1GFeT3k/UzGdVpA-3XI/AAAAAAAAAGs/VtlmqvZ0IKs-BAfaZC2Xq-1NadTKSVWXwCJkC/s1600-w1000/',
