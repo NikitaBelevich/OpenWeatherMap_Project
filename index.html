@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js" defer></script>
+    <!-- select2 -->
+    <link rel="stylesheet" href="./css/select2-redefinition.css">
+
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/main-style.css">
+    <title>API Weather(14)</title>
+</head>
+
+<body>
+    <div class="logo">
+        <img src="https://khimo.github.io/logos/OpenWeatherDriverHelp.jpg" alt="">
+    </div>
+
+    <div class="weather-wrapper">
+        <form class="weather-form">
+            <select class="weather-form__select">
+                <option selected disabled>Выбор города</option>
+                <optgroup label="Россия">
+                    <option value="524901">Москва</option>
+                    <option value="498817">Санкт-Петербург</option>
+                    <option value="520555">Нижний Новгород</option>
+                    <option value="2013348">Владивосток</option>
+                    <option value="2013159">Якутск</option>
+                    <option value="491422">Сочи</option>
+                </optgroup>
+                <optgroup label="ОАЭ">
+                    <option value="292223">Дубай</option>
+                </optgroup>
+                <optgroup label="Great Britain">
+                    <option value="2643743">London</option>
+                    <option value="2648579">Glasgow</option>
+                </optgroup>
+                <optgroup label="Unated States">
+                    <option value="4140963">Washington, D. C.</option>
+                    <option value="5506956">Las Vegas, st.Nevada</option>
+                    <option value="5454711">Albuquerque, st.New Mexico</option>
+
+                </optgroup>
+            </select>
+        </form>
+
+        <div class="weather">
+
+            <div class="preloader">
+                <div class="circle"></div>
+                <small class="preloader__signature">Developed By Nikita Belevich</small>
+            </div>
+
+            <header class="weather__header">
+                <div class="weather__header__title-top">
+                    <div class="country-city">
+                        <img src="http://pngimg.com/uploads/flags/flags_PNG14622.png" alt="Flag">
+                        <div>
+                            <span></span>
+                            <p class="country-city__date"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="weather__header__current-weather">
+                    <div class="temperature">
+                        <img src="" alt="" id="weather-icon">
+                        <span></span>
+                    </div>
+                    <div class="description-weather"></div>
+                    <div class="parametr-list">
+                        <ul>
+                            <li id="pressure"><span class="icon-compass-pointing"></span></li>
+                            <li id="humidity"><span class="icon-drop-of-water"></span></li>
+                            <li id="wind"><span class="icon-wind-weather"></span></li>
+                            <li id="sunrise-sunset">
+                                <span class="icon-sunrise"></span>
+                                <span class="icon-sunset" id="sunset-li"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </header>
+            <main class="weather-main">
+                <div class="weather-main__day">
+                    <div class="weather-main__day__date"></div>
+                    <img src="" alt="">
+                    <div class="weather-main__day_temperature">
+                        <div class="day"></div>
+                        <div class="night"></div>
+                    </div>
+                    <p class="weather-main__day_description"></p>
+                    <ul>
+                        <li><span class="icon-compass-pointing"></span></li>
+                        <li><span class="icon-drop-of-water"></span></li>
+                        <li><span class="icon-wind-weather"></span></li>
+                    </ul>
+                </div>
+                <div class="weather-main__day">
+                    <div class="weather-main__day__date"></div>
+                    <img src="" alt="">
+                    <div class="weather-main__day_temperature">
+                        <div class="day"></div>
+                        <div class="night"></div>
+                    </div>
+                    <p class="weather-main__day_description"></p>
+                    <ul>
+                        <li><span class="icon-compass-pointing"></span></li>
+                        <li><span class="icon-drop-of-water"></span></li>
+                        <li> <span class="icon-wind-weather"></span></li>
+                    </ul>
+                </div>
+                <div class="weather-main__day">
+                    <div class="weather-main__day__date"></div>
+                    <img src="" alt="">
+                    <div class="weather-main__day_temperature">
+                        <div class="day"></div>
+                        <div class="night"></div>
+                    </div>
+                    <p class="weather-main__day_description"></p>
+                    <ul>
+                        <li><span class="icon-compass-pointing"></span></li>
+                        <li><span class="icon-drop-of-water"></span></li>
+                        <li><span class="icon-wind-weather"></span></li>
+                    </ul>
+                </div>
+                <div class="weather-main__day">
+                    <div class="weather-main__day__date"></div>
+                    <img src="" alt="">
+                    <div class="weather-main__day_temperature">
+                        <div class="day"></div>
+                        <div class="night"></div>
+                    </div>
+                    <p class="weather-main__day_description"></p>
+                    <ul>
+                        <li><span class="icon-compass-pointing"></span></li>
+                        <li><span class="icon-drop-of-water"></span></li>
+                        <li><span class="icon-wind-weather"></span></li>
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- библиотека для работы со временем -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" defer></script>
+
+    <script src="./js/app.js" defer></script>
+</body>
+
+</html>
