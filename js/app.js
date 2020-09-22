@@ -106,7 +106,7 @@ function getNameWind(windSpeed) {
 const preloader = document.querySelector('.preloader');
 const containerWeather = document.querySelector('.weather');
 // Загружаем первый раз при загрузке страницы, т.к изначально данные стоят для Москвы
-awaitLoadPhotoOfCity('/img/Moscow.jpg');
+awaitLoadPhotoOfCity('./img/Moscow.jpg');
 /*
 Функция принимает url картинки города, создаёт узел img и ждёт загрузки картинки, затем добавляет её в качестве фона.
 Изначально включается прелоадер, чтобы скрыть отрисовку, затем когда всё загрузилось, прелоадер выключается.
@@ -401,7 +401,7 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
 
         // объект с фотографиями городов
         const photosCities = {
-            'Москва': '/img/Moscow.jpg',
+            'Москва': './img/Moscow.jpg',
             // https://avatars.mds.yandex.net/get-zen_doc/50509/pub_5cb067cb19feb400b5a02969_5cb078385c891100b324e6b5/scale_1200
             // https://www.ruspeach.com/upload/iblock/942/942212a3486b45bb5b0501d6cb11a10c.jpg
             'Санкт-Петербург': 'https://cdn.getyourguide.com/img/tour_img-1737994-148.jpg',
