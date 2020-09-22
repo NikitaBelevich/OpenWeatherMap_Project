@@ -230,10 +230,10 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
             // console.log(`${day1} 15:00:00`);
 
             // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
-            let temperatureDataDay1 = getTemperature(day1);
-            let temperatureDataDay2 = getTemperature(day2);
-            let temperatureDataDay3 = getTemperature(day3);
-            let temperatureDataDay4 = getTemperature(day4);
+            let temperatureDataDay1 = getTemperature(day1, data);
+            let temperatureDataDay2 = getTemperature(day2, data);
+            let temperatureDataDay3 = getTemperature(day3, data);
+            let temperatureDataDay4 = getTemperature(day4, data);
 
             // записываем данные по всем дням в массив
             const temperatureDataForAllDaysArray = [
@@ -336,61 +336,7 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
             // вывод скорости ветра--------------------------------------------------------
             // вывод информации на страницу
 
-            function getTemperature(dayNumber) {
-                const temperatureData = { // объект куда будем записывать данные температуры за ночь и день
-                    'night': {},
-                    'day': {},
-                };
-                // console.log(temperatureData);
-
-                for (const key in data['list']) { // перебираем list
-                    // console.log(data['list'][key]);
-                    for (const key2 in data['list'][key]) { // перебираем значение каждого ключа list, это объект
-                        // console.log(data['list'][key][key2]);
-                        // получаем данные о температуре на ночь указанной даты
-                        if (data['list'][key]['dt_txt'] == `${dayNumber} 00:00:00`) {
-                            // создаём свойства объекта и записываем в значение данные
-                // записываем в значение ключа night, значение это объект и мы записываем свойства с данными
-                            temperatureData['night']['date'] = data['list'][key]['dt_txt'];
-
-                            temperatureData['night']['humidity'] = data['list'][key].main.humidity;
-                            temperatureData['night']['pressure'] = data['list'][key].main.pressure;
-                            temperatureData['night']['temperature'] = data['list'][key].main.temp;
-                            temperatureData['night']['description'] = data['list'][key].weather['0'].description;
-                            temperatureData['night']['codeIcon'] = data['list'][key].weather['0'].icon;
-
-                            temperatureData['night']['windSpeed'] = data['list'][key].wind.speed;
-                            temperatureData['night']['windDeg'] = data['list'][key].wind.deg;
-
-                            break;
-                        }
-                        // получаем данные о температуре на ночь указанной даты
-
-                        // получаем данные о температуре на полдень указанной даты
-                        // если значение ключа даты равно завтрашней дате на 15 часов, то мы берём данные из этого объекта
-                        if (data['list'][key]['dt_txt'] == `${dayNumber} 12:00:00`) {
-                            // создаём свойства объекта и записываем в значение данные
-                    // записываем в значение ключа day, значение это объект и мы записываем свойства с данными
-                            temperatureData['day']['date'] = data['list'][key]['dt_txt'];
-
-                            temperatureData['day']['humidity'] = data['list'][key].main.humidity;
-                            temperatureData['day']['pressure'] = data['list'][key].main.pressure;
-                            temperatureData['day']['temperature'] = data['list'][key].main.temp;
-                            temperatureData['day']['description'] = data['list'][key].weather['0'].description;
-                            temperatureData['day']['codeIcon'] = data['list'][key].weather['0'].icon;
-
-                            temperatureData['day']['windSpeed'] = data['list'][key].wind.speed;
-                            temperatureData['day']['windDeg'] = data['list'][key].wind.deg;
-
-                            break;
-                        }
-                        // получаем данные о температуре на полдень указанной даты
-                        //     // console.log(data['list'][key]['dt_txt']);
-                    }
-                    // console.log(data['list'][key]);
-                }
-                return temperatureData; // возвращаем объект с погодой на день и ночь
-            }
+            
 
         })
         .catch(function () {
@@ -556,10 +502,10 @@ $(document).ready(function() {
             // console.log(moment.utc().utcOffset(timezoneCity).format('HH:mm:ss'));
 
             // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
-            let temperatureDataDay1 = getTemperature(day1);
-            let temperatureDataDay2 = getTemperature(day2);
-            let temperatureDataDay3 = getTemperature(day3);
-            let temperatureDataDay4 = getTemperature(day4);
+            let temperatureDataDay1 = getTemperature(day1, data);
+            let temperatureDataDay2 = getTemperature(day2, data);
+            let temperatureDataDay3 = getTemperature(day3, data);
+            let temperatureDataDay4 = getTemperature(day4, data);
 
             // записываем данные по всем дням в массив
             const temperatureDataForAllDaysArray = [
@@ -664,61 +610,7 @@ $(document).ready(function() {
             // вывод скорости ветра--------------------------------------------------------
             // вывод информации на страницу
 
-            function getTemperature(dayNumber) {
-                const temperatureData = { // объект куда будем записывать данные температуры за ночь и день
-                    'night': {},
-                    'day': {},
-                };
-                // console.log(temperatureData);
-
-                for (const key in data['list']) { // перебираем list
-                    // console.log(data['list'][key]);
-                    for (const key2 in data['list'][key]) { // перебираем значение каждого ключа list, это объект
-                        // console.log(data['list'][key][key2]);
-                        // получаем данные о температуре на ночь указанной даты
-                        if (data['list'][key]['dt_txt'] == `${dayNumber} 00:00:00`) {
-                            // создаём свойства объекта и записываем в значение данные
-                            // записываем в значение ключа night, значение это объект и мы записываем свойства с данными
-                            temperatureData['night']['date'] = data['list'][key]['dt_txt'];
-
-                            temperatureData['night']['humidity'] = data['list'][key].main.humidity;
-                            temperatureData['night']['pressure'] = data['list'][key].main.pressure;
-                            temperatureData['night']['temperature'] = data['list'][key].main.temp;
-                            temperatureData['night']['description'] = data['list'][key].weather['0'].description;
-                            temperatureData['night']['codeIcon'] = data['list'][key].weather['0'].icon;
-
-                            temperatureData['night']['windSpeed'] = data['list'][key].wind.speed;
-                            temperatureData['night']['windDeg'] = data['list'][key].wind.deg;
-
-                            break;
-                        }
-                        // получаем данные о температуре на ночь указанной даты
-
-                        // получаем данные о температуре на полдень указанной даты
-                        // если значение ключа даты равно завтрашней дате на 12 часов, то мы берём данные из этого объекта
-                        if (data['list'][key]['dt_txt'] == `${dayNumber} 12:00:00`) {
-                            // создаём свойства объекта и записываем в значение данные
-                            // записываем в значение ключа day, значение это объект и мы записываем свойства с данными
-                            temperatureData['day']['date'] = data['list'][key]['dt_txt'];
-
-                            temperatureData['day']['humidity'] = data['list'][key].main.humidity;
-                            temperatureData['day']['pressure'] = data['list'][key].main.pressure;
-                            temperatureData['day']['temperature'] = data['list'][key].main.temp;
-                            temperatureData['day']['description'] = data['list'][key].weather['0'].description;
-                            temperatureData['day']['codeIcon'] = data['list'][key].weather['0'].icon;
-
-                            temperatureData['day']['windSpeed'] = data['list'][key].wind.speed;
-                            temperatureData['day']['windDeg'] = data['list'][key].wind.deg;
-
-                            break;
-                        }
-                        // получаем данные о температуре на полдень указанной даты
-                        //     // console.log(data['list'][key]['dt_txt']);
-                    }
-                    // console.log(data['list'][key]);
-                }
-                return temperatureData; // возвращаем объект с погодой на день и ночь
-            }
+            
 
         })
         .catch(function () {
@@ -733,3 +625,58 @@ $(document).ready(function() {
 
        
        
+function getTemperature(dayNumber, data) {
+    const temperatureData = { // объект куда будем записывать данные температуры за ночь и день
+        'night': {},
+        'day': {},
+    };
+    // console.log(temperatureData);
+
+    for (const key in data['list']) { // перебираем list
+        // console.log(data['list'][key]);
+        for (const key2 in data['list'][key]) { // перебираем значение каждого ключа list, это объект
+            // console.log(data['list'][key][key2]);
+            // получаем данные о температуре на ночь указанной даты
+            if (data['list'][key]['dt_txt'] == `${dayNumber} 00:00:00`) {
+                // создаём свойства объекта и записываем в значение данные
+                // записываем в значение ключа night, значение это объект и мы записываем свойства с данными
+                temperatureData['night']['date'] = data['list'][key]['dt_txt'];
+
+                temperatureData['night']['humidity'] = data['list'][key].main.humidity;
+                temperatureData['night']['pressure'] = data['list'][key].main.pressure;
+                temperatureData['night']['temperature'] = data['list'][key].main.temp;
+                temperatureData['night']['description'] = data['list'][key].weather['0'].description;
+                temperatureData['night']['codeIcon'] = data['list'][key].weather['0'].icon;
+
+                temperatureData['night']['windSpeed'] = data['list'][key].wind.speed;
+                temperatureData['night']['windDeg'] = data['list'][key].wind.deg;
+
+                break;
+            }
+            // получаем данные о температуре на ночь указанной даты
+
+            // получаем данные о температуре на полдень указанной даты
+            // если значение ключа даты равно завтрашней дате на 12 часов, то мы берём данные из этого объекта
+            if (data['list'][key]['dt_txt'] == `${dayNumber} 12:00:00`) {
+                // создаём свойства объекта и записываем в значение данные
+                // записываем в значение ключа day, значение это объект и мы записываем свойства с данными
+                temperatureData['day']['date'] = data['list'][key]['dt_txt'];
+
+                temperatureData['day']['humidity'] = data['list'][key].main.humidity;
+                temperatureData['day']['pressure'] = data['list'][key].main.pressure;
+                temperatureData['day']['temperature'] = data['list'][key].main.temp;
+                temperatureData['day']['description'] = data['list'][key].weather['0'].description;
+                temperatureData['day']['codeIcon'] = data['list'][key].weather['0'].icon;
+
+                temperatureData['day']['windSpeed'] = data['list'][key].wind.speed;
+                temperatureData['day']['windDeg'] = data['list'][key].wind.deg;
+
+                break;
+            }
+            // получаем данные о температуре на полдень указанной даты
+            //     // console.log(data['list'][key]['dt_txt']);
+        }
+        // console.log(data['list'][key]);
+    }
+    return temperatureData; // возвращаем объект с погодой на день и ночь
+}
