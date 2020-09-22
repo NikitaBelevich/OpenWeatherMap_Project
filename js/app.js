@@ -219,59 +219,8 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?id=524901&lang=ru&appid=2
 fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
-            
-            // console.log(data);
-            
-            // day1.setDate(day1.getDate() + 1); // завтрашний день
-            let day1 = moment().add(1, 'days').format('YYYY-MM-DD'); // завтрашний день с помощью библиотеки
-            let day2 = moment().add(2, 'days').format('YYYY-MM-DD');
-            let day3 = moment().add(3, 'days').format('YYYY-MM-DD');
-            let day4 = moment().add(4, 'days').format('YYYY-MM-DD');
-            // console.log(`${day1} 15:00:00`);
 
-            // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
-            let temperatureDataDay1 = getTemperature(day1, data);
-            let temperatureDataDay2 = getTemperature(day2, data);
-            let temperatureDataDay3 = getTemperature(day3, data);
-            let temperatureDataDay4 = getTemperature(day4, data);
-
-            // записываем данные по всем дням в массив
-            const temperatureDataForAllDaysArray = [
-                temperatureDataDay1,
-                temperatureDataDay2,
-                temperatureDataDay3,
-                temperatureDataDay4,
-            ];
-            // console.log(temperatureDataForAllDaysArray);
-
-            // вывод информации на страницу-------------------------------------------------------------
-            // заголовок с датой
-            outputHeaderWithTheDate();
-
-            // иконки погоды
-            outputOfTheIcons(temperatureDataForAllDaysArray);
-            
-            // значения температуры--------------------------------------------------
-            // вывод дневной температуры
-            outputDayTimeTemperature(temperatureDataForAllDaysArray); 
-            
-            // вывод ночной температуры
-            outputNightTimeTemperature(temperatureDataForAllDaysArray); 
-            // значения температуры--------------------------------------------------
-
-            // общее описание погоды
-            outputDescription(temperatureDataForAllDaysArray);
-            
-            // вывод давления
-            outputPressure(temperatureDataForAllDaysArray);
-            
-            // вывод влажности
-            outputHumidity(temperatureDataForAllDaysArray);
-            
-            // вывод скорости ветра
-            outputWind(temperatureDataForAllDaysArray);
-            
-            // вывод информации на страницу-------------------------------------------------------------
+            requestProcessing(data);
         })
         .catch(function () {
             // catch any errors
@@ -335,7 +284,7 @@ $(document).ready(function() {
 
         // console.log('Selecting: ' , e.params.args.data);
         const idCity = e.params.args.data.id;
-        // запрос погоды на текущий момент---------------------------------------------------------------------------
+// запрос погоды на текущий момент---------------------------------------------------------------------------
         // делаем запрос на текущую погоду при выборе города в select
         fetch(`https://api.openweathermap.org/data/2.5/weather?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
             .then(function (resp) {
@@ -423,62 +372,7 @@ $(document).ready(function() {
         .then(function (resp) { return resp.json() })
         .then(function (data) {
             
-            const timezoneCity = data['city']['timezone'] / 60;
-            console.warn(`Смещение UTC на ${timezoneCity} минут`);
-            console.group('Данные погоды на 5 дней');
-            console.info(data);
-            console.groupEnd('Данные погоды на 5 дней');
-            // day1.setDate(day1.getDate() + 1); // завтрашний день
-            let day1 = moment().add(1, 'days').format('YYYY-MM-DD'); // завтрашний день с помощью библиотеки
-            let day2 = moment().add(2, 'days').format('YYYY-MM-DD');
-            let day3 = moment().add(3, 'days').format('YYYY-MM-DD');
-            let day4 = moment().add(4, 'days').format('YYYY-MM-DD');
-            // console.log(moment.utc().utcOffset(timezoneCity).format('HH:mm:ss'));
-
-            // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
-            let temperatureDataDay1 = getTemperature(day1, data);
-            let temperatureDataDay2 = getTemperature(day2, data);
-            let temperatureDataDay3 = getTemperature(day3, data);
-            let temperatureDataDay4 = getTemperature(day4, data);
-
-            // записываем данные по всем дням в массив
-            const temperatureDataForAllDaysArray = [
-                temperatureDataDay1,
-                temperatureDataDay2,
-                temperatureDataDay3,
-                temperatureDataDay4,
-            ];
-            console.group('Своя структура с нужными показателями');
-            console.info(temperatureDataForAllDaysArray);
-            console.groupEnd('Своя структура с нужными показателями');
-
-            // вывод информации на страницу-------------------------------------------------------------
-            // заголовок с датой----------------------------------------------------
-            outputHeaderWithTheDate();
-            
-            // иконки погоды---------------------------------------------------------
-            outputOfTheIcons(temperatureDataForAllDaysArray);
-            
-            // значения температуры--------------------------------------------------
-            // вывод дневной температуры
-            outputDayTimeTemperature(temperatureDataForAllDaysArray); 
-            
-            // вывод ночной температуры
-            outputNightTimeTemperature(temperatureDataForAllDaysArray); 
-            // значения температуры--------------------------------------------------
-            
-            // общее описание погоды
-            outputDescription(temperatureDataForAllDaysArray);
-
-            // вывод давления
-            outputPressure(temperatureDataForAllDaysArray);
-            
-            // вывод влажности
-            outputHumidity(temperatureDataForAllDaysArray);
-
-            // вывод скорости ветра
-            outputWind(temperatureDataForAllDaysArray);
-            // вывод информации на страницу-------------------------------------------------------------
+            requestProcessing(data);
         })
         .catch(function () {
             // catch any errors
@@ -489,3 +383,63 @@ $(document).ready(function() {
 });
 //select2-library
 
+// В этой функции вынесен весь код который раньше дублировался в 2 запросах на получение погоды на 5 дней
+// Теперь код осмыслен в функцию и вызывается в 2 местах
+function requestProcessing(data) {
+    const timezoneCity = data['city']['timezone'] / 60;
+    console.warn(`Смещение UTC на ${timezoneCity} минут`);
+    console.group('Данные погоды на 5 дней');
+    console.info(data);
+    console.groupEnd('Данные погоды на 5 дней');
+    // day1.setDate(day1.getDate() + 1); // завтрашний день
+    let day1 = moment().add(1, 'days').format('YYYY-MM-DD'); // завтрашний день с помощью библиотеки
+    let day2 = moment().add(2, 'days').format('YYYY-MM-DD');
+    let day3 = moment().add(3, 'days').format('YYYY-MM-DD');
+    let day4 = moment().add(4, 'days').format('YYYY-MM-DD');
+    // console.log(moment.utc().utcOffset(timezoneCity).format('HH:mm:ss'));
+
+    // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
+    let temperatureDataDay1 = getTemperature(day1, data);
+    let temperatureDataDay2 = getTemperature(day2, data);
+    let temperatureDataDay3 = getTemperature(day3, data);
+    let temperatureDataDay4 = getTemperature(day4, data);
+
+    // записываем данные по всем дням в массив
+    const temperatureDataForAllDaysArray = [
+        temperatureDataDay1,
+        temperatureDataDay2,
+        temperatureDataDay3,
+        temperatureDataDay4,
+    ];
+    console.group('Своя структура с нужными показателями');
+    console.info(temperatureDataForAllDaysArray);
+    console.groupEnd('Своя структура с нужными показателями');
+
+    // вывод информации на страницу-------------------------------------------------------------
+    // заголовок с датой----------------------------------------------------
+    outputHeaderWithTheDate();
+
+    // иконки погоды---------------------------------------------------------
+    outputOfTheIcons(temperatureDataForAllDaysArray);
+
+    // значения температуры--------------------------------------------------
+    // вывод дневной температуры
+    outputDayTimeTemperature(temperatureDataForAllDaysArray);
+
+    // вывод ночной температуры
+    outputNightTimeTemperature(temperatureDataForAllDaysArray);
+    // значения температуры--------------------------------------------------
+
+    // общее описание погоды
+    outputDescription(temperatureDataForAllDaysArray);
+
+    // вывод давления
+    outputPressure(temperatureDataForAllDaysArray);
+
+    // вывод влажности
+    outputHumidity(temperatureDataForAllDaysArray);
+
+    // вывод скорости ветра
+    outputWind(temperatureDataForAllDaysArray);
+    // вывод информации на страницу-------------------------------------------------------------
+}
