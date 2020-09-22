@@ -151,75 +151,27 @@ function disablePreloader(preloader) {
 // первые 2 запроса выполняются при загрузке и выводят данные по погоде Москвы
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 fetch(`https://api.openweathermap.org/data/2.5/weather?id=524901&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
-.then(function (resp) { return resp.json() })
-.then(function (data) {
-    // console.log(data);
-
-    // вывод даты и времени города со смещением пояса в заголовок
-    const timezoneCity = data['timezone'] / 60; // из секунд в минуты по требованию метода
-    getDateGMTForCity(timezoneCity);
-
-    // подстановка имени города
-    let nameCity = data.name;
-    let titleCity = document.querySelector('.country-city > div > span');
-    titleCity.textContent = nameCity;
-
-    // подстановка иконки погоды
-    let weatherIcon = document.querySelector('#weather-icon');
-    let codeIcon = data.weather['0']['icon'];
-    let iconUrl = `https://openweathermap.org/img/wn/${codeIcon}@2x.png`;
-    weatherIcon.src = iconUrl; // записываем URL в img
-
-    // вывод температуры
-    let outTemperature = document.querySelector('.temperature > span');
-    let currentTemperature = Math.round(data['main']['temp'] - 273.15); // переводим в цельсии и округляем
-    outTemperature.innerHTML = addTemperatureSign(currentTemperature);
-
-    // вывод описания погоды
-    let weatherDescription = document.querySelector('.description-weather');
-    weatherDescription.textContent = data['weather']['0']['description'];
-
-    // давление
-    let pressure = Math.round(data['main']['pressure'] * 0.737); // переводим гектопаскали в мм рт.ст.
-    let itemPressure = document.querySelector('.parametr-list > ul #pressure');
-    itemPressure.insertAdjacentHTML('beforeend', `${pressure} мм рт. ст.`);
-
-    // влажность 
-    let humidity = data['main']['humidity'];
-    let itemHumidity = document.querySelector('.parametr-list > ul #humidity');
-    itemHumidity.insertAdjacentHTML('beforeend', `${humidity}% ${getHumidityLevel(humidity)}`);
-
-    // ветер
-    let wind = data['wind']['speed'];
-    let windDirection = data['wind']['deg'];
-    let itemWind = document.querySelector('.parametr-list > ul #wind');
-    itemWind.insertAdjacentHTML('beforeend', `${wind} м/c, ${getWindDirection(windDirection)}, ${getNameWind(wind)}`);
-    // ветер
-
-    // восход, закат
-    let sunriseTimeUNIX = data['sys']['sunrise']; // UNIX Time
-    let sunsetTimeUNIX = data['sys']['sunset']; // UNIX Time
-    // переводим время с помощью библиотеки
-    let sunriseTimeNormal = moment.unix(sunriseTimeUNIX).format('HH:mm'); // восход
-    let sunsetTimeNormal = moment.unix(sunsetTimeUNIX).format('HH:mm'); // закат
-
-    // выводим время восхода и захода рядом с иконками
-    let spanSunrise = document.querySelector('.parametr-list > ul .icon-sunrise');
-    spanSunrise.insertAdjacentHTML('afterend', sunriseTimeNormal);
-    let spanSunset = document.querySelector('.parametr-list > ul .icon-sunset');
-    spanSunset.insertAdjacentHTML('afterend', sunsetTimeNormal);
-    // восход, закат
-})
-.catch(function () {
-    // catch any errors
-});
+    .then(function (resp) {
+        return resp.json()
+    })
+    .then(function (data) {
+        // подстановка имени города
+        let nameCity = data.name;
+        let titleCity = document.querySelector('.country-city > div > span');
+        titleCity.textContent = nameCity;
+        // Выводим данные по погоде на сегодняшний день
+        requestProcessingToday(data);
+    })
+    .catch(function () {
+        // catch any errors
+    });
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
 fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
-
+            // Выводим данные по погоде на 5 дней
             requestProcessing(data);
         })
         .catch(function () {
@@ -291,76 +243,23 @@ $(document).ready(function() {
                 return resp.json()
             })
             .then(function (data) {
-                console.group('Данны погоды на текущий день');
-                console.info(data);
-                console.groupEnd('Данны погоды на текущий день');
-                // вывод даты и времени города со смещением пояса в заголовок
-                const timezoneCity = data['timezone'] / 60; // из секунд в минуты по требованию метода
-                getDateGMTForCity(timezoneCity);
-                // console.warn(timezoneCity);
-                // вывод даты и времени города со смещением пояса в заголовок
-                
                 // подстановка имени города
                 let nameCity = data.name;
                 let titleCity = document.querySelector('.country-city > div > span');
                 titleCity.textContent = nameCity;
-                // подстановка имени города
-
+                
                 // выводим соответствующую городу фоновую фотографию 
                 // Удаляем картинку предыдущего города
                 document.querySelector('.weather__background-city').remove();
                 awaitLoadPhotoOfCity(photosCities[nameCity]);
-                // выводим соответствующую городу фоновую фотографию 
 
                 // определяем код страны и выводим соответствующий флаг
                 let imageFlag = document.querySelector('.country-city > img');
                 let codeState = data['sys']['country'];
                 imageFlag.src = flagsOfTheStates[codeState];
-                // определяем код страны и выводим соответствующий флаг
 
-                // подстановка иконки погоды
-                let weatherIcon = document.querySelector('#weather-icon');
-                let codeIcon = data.weather['0']['icon'];
-                let iconUrl = `https://openweathermap.org/img/wn/${codeIcon}@2x.png`;
-                weatherIcon.src = iconUrl; // записываем URL в img
-                // вывод температуры
-                let outTemperature = document.querySelector('.temperature > span');
-                let currentTemperature = Math.round(data['main']['temp'] - 273.15); // переводим в цельсии и округляем
-                outTemperature.innerHTML = addTemperatureSign(currentTemperature);
-
-                // вывод описания погоды
-                let weatherDescription = document.querySelector('.description-weather');
-                weatherDescription.textContent = data['weather']['0']['description'];
-
-                // давление
-                let pressure = Math.round(data['main']['pressure'] * 0.737); // переводим гектопаскали в мм рт.ст.
-                let itemPressure = document.querySelector('.parametr-list > ul #pressure');
-                itemPressure.innerHTML = `<span class="icon-compass-pointing"></span>${pressure} мм рт. ст.`;
-
-                // влажность 
-                let humidity = data['main']['humidity'];
-                let itemHumidity = document.querySelector('.parametr-list > ul #humidity');
-                itemHumidity.innerHTML = `<span class="icon-drop-of-water"></span>${humidity}% ${getHumidityLevel(humidity)}`;
-                // влажность 
-               
-                // ветер
-                let wind = data['wind']['speed'];
-                let windDirection = data['wind']['deg'];
-                let itemWind = document.querySelector('.parametr-list > ul #wind');
-                itemWind.innerHTML = `<span class="icon-wind-weather"></span>${wind} м/c, ${getWindDirection(windDirection)}, ${getNameWind(wind)}`;
-                // ветер
-
-                // восход, закат
-                let sunriseTimeUNIX = data['sys']['sunrise']; // UNIX Time
-                let sunsetTimeUNIX = data['sys']['sunset']; // UNIX Time
-                // переводим время с помощью библиотеки
-                let sunriseTimeNormal = moment.unix(sunriseTimeUNIX).format('HH:mm'); // восход
-                let sunsetTimeNormal = moment.unix(sunsetTimeUNIX).format('HH:mm'); // закат
-
-                // выводим время восхода и захода рядом с иконками
-                let spanSunrise = document.querySelector('.parametr-list > ul #sunrise-sunset');
-                spanSunrise.innerHTML = `<span class="icon-sunrise"></span>${sunriseTimeNormal} <span class="icon-sunset" id="sunset-li"></span>${sunsetTimeNormal}`;
-                // восход, закат
+                // Выводим оставшиеся данные
+                requestProcessingToday(data);
             })
             .catch(function () {
                 // catch any errors
@@ -371,7 +270,7 @@ $(document).ready(function() {
         fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
-            
+            // Выводим данные по погоде на 5 дней
             requestProcessing(data);
         })
         .catch(function () {
@@ -383,6 +282,62 @@ $(document).ready(function() {
 });
 //select2-library
 
+
+function requestProcessingToday(data) {
+    console.group('Данные погоды на текущий день');
+    console.info(data);
+    console.groupEnd('Данные погоды на текущий день');
+    // вывод даты и времени города со смещением пояса в заголовок
+    const timezoneCity = data['timezone'] / 60; // из секунд в минуты по требованию метода
+    getDateGMTForCity(timezoneCity);
+    // console.warn(timezoneCity);
+    // вывод даты и времени города со смещением пояса в заголовок
+
+    // подстановка иконки погоды
+    let weatherIcon = document.querySelector('#weather-icon');
+    let codeIcon = data.weather['0']['icon'];
+    let iconUrl = `https://openweathermap.org/img/wn/${codeIcon}@2x.png`;
+    weatherIcon.src = iconUrl; // записываем URL в img
+
+    // вывод температуры
+    let outTemperature = document.querySelector('.temperature > span');
+    let currentTemperature = Math.round(data['main']['temp'] - 273.15); // переводим в цельсии и округляем
+    outTemperature.innerHTML = addTemperatureSign(currentTemperature);
+
+    // вывод описания погоды
+    let weatherDescription = document.querySelector('.description-weather');
+    weatherDescription.textContent = data['weather']['0']['description'];
+
+    // давление
+    let pressure = Math.round(data['main']['pressure'] * 0.737); // переводим гектопаскали в мм рт.ст.
+    let itemPressure = document.querySelector('.parametr-list > ul #pressure');
+    itemPressure.innerHTML = `<span class="icon-compass-pointing"></span>${pressure} мм рт. ст.`;
+
+    // влажность 
+    let humidity = data['main']['humidity'];
+    let itemHumidity = document.querySelector('.parametr-list > ul #humidity');
+    itemHumidity.innerHTML = `<span class="icon-drop-of-water"></span>${humidity}% ${getHumidityLevel(humidity)}`;
+    // влажность 
+   
+    // ветер
+    let wind = data['wind']['speed'];
+    let windDirection = data['wind']['deg'];
+    let itemWind = document.querySelector('.parametr-list > ul #wind');
+    itemWind.innerHTML = `<span class="icon-wind-weather"></span>${wind} м/c, ${getWindDirection(windDirection)}, ${getNameWind(wind)}`;
+    // ветер
+
+    // восход, закат
+    let sunriseTimeUNIX = data['sys']['sunrise']; // UNIX Time
+    let sunsetTimeUNIX = data['sys']['sunset']; // UNIX Time
+    // переводим время с помощью библиотеки
+    let sunriseTimeNormal = moment.unix(sunriseTimeUNIX).format('HH:mm'); // восход
+    let sunsetTimeNormal = moment.unix(sunsetTimeUNIX).format('HH:mm'); // закат
+
+    // выводим время восхода и захода рядом с иконками
+    let spanSunrise = document.querySelector('.parametr-list > ul #sunrise-sunset');
+    spanSunrise.innerHTML = `<span class="icon-sunrise"></span>${sunriseTimeNormal} <span class="icon-sunset" id="sunset-li"></span>${sunsetTimeNormal}`;
+    // восход, закат
+}
 // В этой функции вынесен весь код который раньше дублировался в 2 запросах на получение погоды на 5 дней
 // Теперь код осмыслен в функцию и вызывается в 2 местах
 function requestProcessing(data) {
