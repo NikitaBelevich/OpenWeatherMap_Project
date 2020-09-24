@@ -52,9 +52,7 @@ body {
 }
 
 .weather{
-    /* height: 600px; */
-    /* width: 1000px; */
-    /* margin-top: 2vh; */
+    min-height: 562px;
     position: relative;
     border: 1px solid black;
 }
