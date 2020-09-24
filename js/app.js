@@ -162,8 +162,8 @@ fetch(`https://api.openweathermap.org/data/2.5/weather?id=524901&lang=ru&appid=2
         // Выводим данные по погоде на сегодняшний день
         requestProcessingToday(data);
     })
-    .catch(function () {
-        // catch any errors
+    .catch(function (err) {
+        console.error(err);
     });
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 
@@ -174,8 +174,8 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
             // Выводим данные по погоде на 5 дней
             requestProcessing(data);
         })
-        .catch(function () {
-            // catch any errors
+        .catch(function (err) {
+            console.error(err);
         });
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
 
@@ -261,8 +261,9 @@ $(document).ready(function() {
                 // Выводим оставшиеся данные
                 requestProcessingToday(data);
             })
-            .catch(function () {
-                // catch any errors
+            .catch(function (err) {
+                alert('Не получены данные погоды на текущий день');
+                console.error(err);
             });
 // запрос погоды на текущий момент---------------------------------------------------------------------------
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
@@ -273,8 +274,9 @@ $(document).ready(function() {
             // Выводим данные по погоде на 5 дней
             requestProcessing(data);
         })
-        .catch(function () {
-            // catch any errors
+        .catch(function (err) {
+            alert('Не получены данные погоды на 4 дня');
+            console.error(err);
         });
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
       });
