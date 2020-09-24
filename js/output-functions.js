@@ -93,12 +93,9 @@ function getTemperature(dayNumber, data) {
         'night': {},
         'day': {},
     };
-    // console.log(temperatureData);
 
     for (const key in data['list']) { // перебираем list
-        // console.log(data['list'][key]);
         for (const key2 in data['list'][key]) { // перебираем значение каждого ключа list, это объект
-            // console.log(data['list'][key][key2]);
             // получаем данные о температуре на ночь указанной даты
             if (data['list'][key]['dt_txt'] == `${dayNumber} 00:00:00`) {
                 // создаём свойства объекта и записываем в значение данные
@@ -136,7 +133,6 @@ function getTemperature(dayNumber, data) {
                 break;
             }
         }
-        // console.log(data['list'][key]);
     }
     return temperatureData; // возвращаем объект с погодой на день и ночь
 }

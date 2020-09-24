@@ -99,10 +99,6 @@ function getNameWind(windSpeed) {
 // погода на 5 дней ссылка
 // http://api.openweathermap.org/data/2.5/forecast?id=520555&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705
 
-// https://wallbox.ru/wallpapers/main/201550/fe94967661b23ca.jpg
-
-
-
 const preloader = document.querySelector('.preloader');
 const containerWeather = document.querySelector('.weather');
 // Загружаем первый раз при загрузке страницы, т.к изначально данные стоят для Москвы
@@ -180,63 +176,56 @@ fetch(`https://api.openweathermap.org/data/2.5/forecast?id=524901&lang=ru&appid=
 // запрос погоды на 5 дней----------------------------------------------------------------------------------
 
 
-        // объект с фотографиями городов
-        const photosCities = {
-            'Москва': './img/Moscow.jpg',
-            // https://avatars.mds.yandex.net/get-zen_doc/50509/pub_5cb067cb19feb400b5a02969_5cb078385c891100b324e6b5/scale_1200
-            // https://www.ruspeach.com/upload/iblock/942/942212a3486b45bb5b0501d6cb11a10c.jpg
-            'Санкт-Петербург': 'https://cdn.getyourguide.com/img/tour_img-1737994-148.jpg',
-            'Нижний Новгород': 'https://avatars.mds.yandex.net/get-pdb/480866/9a17b582-ad01-4753-9143-0a467deb255e/s1200',
-            'Владивосток': 'https://forumvostok.ru/upload/medialibrary/d09/d09a266b52d7ebac0915f0f395b7ae64.jpg',
-            'Якутск': 'https://putevoditel-oz.ru/sites/default/files/yakutsk-2.png',
-            'Сочи': 'https://i.ytimg.com/vi/JT4a1xSB5MI/maxresdefault.jpg',
-            'Дубай': 'https://coinrevolution.com/wp-content/uploads/2018/11/The-First-Cryptocurrency-Exchange-in-Dubai-UAE_coinrevolution.com-news.jpg',
-            'Лондон': 'https://afisha.london/wp-content/uploads/2018/01/28069590_xl-Houses-of-Parliament.jpg',
-            'Глазго': 'https://images.theconversation.com/files/280984/original/file-20190624-97745-1cu0wfu.jpg?ixlib=rb-1.1.0&q=15&auto=format&w=600&h=450&fit=crop&dpr=3',
-            'Лас-Вегас': 'https://i.artfile.me/wallpaper/03-07-2017/1920x1358/goroda-las-vegas--ssha-las-vegas-1187674.jpg',
-            'Вашингтон': 'https://www.fitsnews.com/wp-content/uploads/2017/06/iStock-476247849-e1497022310130.jpg',
-            'Альбукерке': 'https://lh5.googleusercontent.com/-LhXZ1GFeT3k/UzGdVpA-3XI/AAAAAAAAAGs/VtlmqvZ0IKs-BAfaZC2Xq-1NadTKSVWXwCJkC/s1600-w1000/',
-        };
-        // объект с фотографиями городов
-        // объект с ссылками на флаги, для вывода на страницу
-        const flagsOfTheStates = {
-            'RU': 'https://pngimg.com/uploads/flags/flags_PNG14622.png',
-            'AE': 'https://www.flagistrany.ru/data/flags/w580/ae.png',
-            'GB': 'https://pngimg.com/uploads/flags/flags_PNG14656.png',
-            'US': 'https://pngimg.com/uploads/flags/flags_PNG14655.png',
-        };
-        // объект с ссылками на флаги, для вывода на страницу
-        // объект с русскими названиями городов
-        const russianNamesOfCities = {
-            'Moscow': 'Москва',
-            'Saint Petersburg': 'Санкт-Петербург',
-            'Nizhniy Novgorod': 'Нижний Новгород',
-            'Vladivostok': 'Владивосток',
-            'Yakutsk': 'Якутск',
-            'Sochi': 'Сочи',
-            'Dubai': 'Дубай',
-            'London': 'Лондон',
-            'Glasgow': 'Глазго',
-            'Washington, D. C.': 'Вашингтон',
-            'Las Vegas': 'Лас-Вегас',
-            'Albuquerque': 'Альбукерке',
-        };
-        // объект с русскими названиями городов
+// объект с фотографиями городов
+const photosCities = {
+    'Москва': './img/Moscow.jpg',
+    'Санкт-Петербург': 'https://cdn.getyourguide.com/img/tour_img-1737994-148.jpg',
+    'Нижний Новгород': 'https://avatars.mds.yandex.net/get-pdb/480866/9a17b582-ad01-4753-9143-0a467deb255e/s1200',
+    'Владивосток': 'https://forumvostok.ru/upload/medialibrary/d09/d09a266b52d7ebac0915f0f395b7ae64.jpg',
+    'Якутск': 'https://putevoditel-oz.ru/sites/default/files/yakutsk-2.png',
+    'Сочи': 'https://i.ytimg.com/vi/JT4a1xSB5MI/maxresdefault.jpg',
+    'Дубай': 'https://coinrevolution.com/wp-content/uploads/2018/11/The-First-Cryptocurrency-Exchange-in-Dubai-UAE_coinrevolution.com-news.jpg',
+    'Лондон': 'https://afisha.london/wp-content/uploads/2018/01/28069590_xl-Houses-of-Parliament.jpg',
+    'Глазго': 'https://images.theconversation.com/files/280984/original/file-20190624-97745-1cu0wfu.jpg?ixlib=rb-1.1.0&q=15&auto=format&w=600&h=450&fit=crop&dpr=3',
+    'Лас-Вегас': 'https://i.artfile.me/wallpaper/03-07-2017/1920x1358/goroda-las-vegas--ssha-las-vegas-1187674.jpg',
+    'Вашингтон': 'https://www.fitsnews.com/wp-content/uploads/2017/06/iStock-476247849-e1497022310130.jpg',
+    'Альбукерке': 'https://lh5.googleusercontent.com/-LhXZ1GFeT3k/UzGdVpA-3XI/AAAAAAAAAGs/VtlmqvZ0IKs-BAfaZC2Xq-1NadTKSVWXwCJkC/s1600-w1000/',
+};
+// объект с ссылками на флаги, для вывода на страницу
+const flagsOfTheStates = {
+    'RU': 'https://pngimg.com/uploads/flags/flags_PNG14622.png',
+    'AE': 'https://www.flagistrany.ru/data/flags/w580/ae.png',
+    'GB': 'https://pngimg.com/uploads/flags/flags_PNG14656.png',
+    'US': 'https://pngimg.com/uploads/flags/flags_PNG14655.png',
+};
+// объект с русскими названиями городов
+const russianNamesOfCities = {
+    'Moscow': 'Москва',
+    'Saint Petersburg': 'Санкт-Петербург',
+    'Nizhniy Novgorod': 'Нижний Новгород',
+    'Vladivostok': 'Владивосток',
+    'Yakutsk': 'Якутск',
+    'Sochi': 'Сочи',
+    'Dubai': 'Дубай',
+    'London': 'Лондон',
+    'Glasgow': 'Глазго',
+    'Washington, D. C.': 'Вашингтон',
+    'Las Vegas': 'Лас-Вегас',
+    'Albuquerque': 'Альбукерке',
+};
 
 
 //select2-library
 $(document).ready(function() {
     $('.weather-form__select').select2();
-    // console.log($('.weather-form__select').find(':selected'));
     // по специальному событию библиотеки запускаем функцию,
     // где получаем id кастомного option, которое является его value
     // передаём GET запрос с указанным id города, который мы считали
     // выводим все данные по этому городу и стране 
-    $('.weather-form__select').on('select2:selecting', function(e) {
+    $('.weather-form__select').on('select2:selecting', function (e) {
 
-        // console.log('Selecting: ' , e.params.args.data);
         const idCity = e.params.args.data.id;
-// запрос погоды на текущий момент---------------------------------------------------------------------------
+        // запрос погоды на текущий момент---------------------------------------------------------------------------
         // делаем запрос на текущую погоду при выборе города в select
         fetch(`https://api.openweathermap.org/data/2.5/weather?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
             .then(function (resp) {
@@ -247,7 +236,7 @@ $(document).ready(function() {
                 let nameCity = data.name;
                 let titleCity = document.querySelector('.country-city > div > span');
                 titleCity.textContent = nameCity;
-                
+
                 // выводим соответствующую городу фоновую фотографию 
                 // Удаляем картинку предыдущего города
                 document.querySelector('.weather__background-city').remove();
@@ -265,21 +254,23 @@ $(document).ready(function() {
                 alert('Не получены данные погоды на текущий день');
                 console.error(err);
             });
-// запрос погоды на текущий момент---------------------------------------------------------------------------
-// запрос погоды на 5 дней----------------------------------------------------------------------------------
+        // запрос погоды на текущий момент---------------------------------------------------------------------------
+        // запрос погоды на 5 дней----------------------------------------------------------------------------------
         // отправляем запрос на получение погоды на 5 дней при выборе города в select
         fetch(`https://api.openweathermap.org/data/2.5/forecast?id=${idCity}&lang=ru&appid=2570ad9f8710a971a6df178c71ad1705`)
-        .then(function (resp) { return resp.json() })
-        .then(function (data) {
-            // Выводим данные по погоде на 5 дней
-            requestProcessing(data);
-        })
-        .catch(function (err) {
-            alert('Не получены данные погоды на 4 дня');
-            console.error(err);
-        });
-// запрос погоды на 5 дней----------------------------------------------------------------------------------
-      });
+            .then(function (resp) {
+                return resp.json()
+            })
+            .then(function (data) {
+                // Выводим данные по погоде на 5 дней
+                requestProcessing(data);
+            })
+            .catch(function (err) {
+                alert('Не получены данные погоды на 4 дня');
+                console.error(err);
+            });
+        // запрос погоды на 5 дней----------------------------------------------------------------------------------
+    });
 
 });
 //select2-library
@@ -292,8 +283,6 @@ function requestProcessingToday(data) {
     // вывод даты и времени города со смещением пояса в заголовок
     const timezoneCity = data['timezone'] / 60; // из секунд в минуты по требованию метода
     getDateGMTForCity(timezoneCity);
-    // console.warn(timezoneCity);
-    // вывод даты и времени города со смещением пояса в заголовок
 
     // подстановка иконки погоды
     let weatherIcon = document.querySelector('#weather-icon');
@@ -319,16 +308,14 @@ function requestProcessingToday(data) {
     let humidity = data['main']['humidity'];
     let itemHumidity = document.querySelector('.parametr-list > ul #humidity');
     itemHumidity.innerHTML = `<span class="icon-drop-of-water"></span>${humidity}% ${getHumidityLevel(humidity)}`;
-    // влажность 
    
     // ветер
     let wind = data['wind']['speed'];
     let windDirection = data['wind']['deg'];
     let itemWind = document.querySelector('.parametr-list > ul #wind');
     itemWind.innerHTML = `<span class="icon-wind-weather"></span>${wind} м/c, ${getWindDirection(windDirection)}, ${getNameWind(wind)}`;
-    // ветер
 
-    // восход, закат
+    // восход, закат ----------------------------------------------
     let sunriseTimeUNIX = data['sys']['sunrise']; // UNIX Time
     let sunsetTimeUNIX = data['sys']['sunset']; // UNIX Time
     // переводим время с помощью библиотеки
@@ -338,7 +325,7 @@ function requestProcessingToday(data) {
     // выводим время восхода и захода рядом с иконками
     let spanSunrise = document.querySelector('.parametr-list > ul #sunrise-sunset');
     spanSunrise.innerHTML = `<span class="icon-sunrise"></span>${sunriseTimeNormal} <span class="icon-sunset" id="sunset-li"></span>${sunsetTimeNormal}`;
-    // восход, закат
+    // восход, закат ----------------------------------------------
 }
 // В этой функции вынесен весь код который раньше дублировался в 2 запросах на получение погоды на 5 дней
 // Теперь код осмыслен в функцию и вызывается в 2 местах
@@ -353,7 +340,6 @@ function requestProcessing(data) {
     let day2 = moment().add(2, 'days').format('YYYY-MM-DD');
     let day3 = moment().add(3, 'days').format('YYYY-MM-DD');
     let day4 = moment().add(4, 'days').format('YYYY-MM-DD');
-    // console.log(moment.utc().utcOffset(timezoneCity).format('HH:mm:ss'));
 
     // вызываем функцию 4 раза, получаем объекты с погодой по каждому дню
     let temperatureDataDay1 = getTemperature(day1, data);
